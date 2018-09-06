@@ -1,5 +1,6 @@
 package com.example.india.e_commerce;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,15 +11,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
-    String name[];
-    int img[];
-    int amt[];
+    private String name[];
+    private int img[];
+    private int amt[];
+    private SQLiteDatabase database;
 
-    public myAdapter(String[] name, int[] img, int[] amt) {
+    public myAdapter(String[] name, int[] img, int[] amt, SQLiteDatabase database) {
         int len = name.length;
         this.name = new String[len];
         this.img = new int[len];
         this.amt = new int[len];
+        this.database = database;
 
         for (int i = 0; i < len; i++) {
             this.name[i] = name[i];
@@ -39,6 +42,16 @@ class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
         holder.title.setText(name[position]);
         holder.imageView.setImageResource(img[position]);
         holder.amt.setText("Rs. " + amt[position] + "/-");
+        final int image = img[position];
+        final String n = name[position];
+        final String price = String.valueOf(amt[position]);
+        holder.cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CartManagement cartManagement = new CartManagement(database);
+                cartManagement.addToCart(image, n, price);
+            }
+        });
     }
 
     @Override

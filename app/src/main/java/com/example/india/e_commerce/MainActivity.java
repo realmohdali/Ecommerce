@@ -1,5 +1,7 @@
 package com.example.india.e_commerce;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +16,8 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    private boolean drawerOpen = false;
+    private SQLiteDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
 
+        database = openOrCreateDatabase("CartItems", MODE_PRIVATE, null);
+
         String name[] = {"Samsung Desktop", "Google Pixel", "LG OLED TV"};
         int img[] = {R.drawable.desktop, R.drawable.pixel, R.drawable.tv};
         int amt[] = {50000, 65000, 125000};
@@ -38,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
-        RecyclerView.Adapter adapter = new myAdapter(name, img, amt);
+        RecyclerView.Adapter adapter = new myAdapter(name, img, amt, database);
         recyclerView.setAdapter(adapter);
     }
 
@@ -53,8 +59,23 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
+                drawerOpen = true;
+                break;
+            case R.id.cart:
+                Intent intent = new Intent(this, Cart.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (drawerOpen) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

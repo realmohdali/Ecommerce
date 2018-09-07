@@ -1,33 +1,30 @@
 package com.example.india.e_commerce;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+
+import java.util.List;
 
 class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
-    private String name[];
-    private int img[];
-    private int amt[];
+    private List<ProductData> data;
     private SQLiteDatabase database;
+    private Context context;
 
-    public myAdapter(String[] name, int[] img, int[] amt, SQLiteDatabase database) {
-        int len = name.length;
-        this.name = new String[len];
-        this.img = new int[len];
-        this.amt = new int[len];
+    myAdapter(List<ProductData> data, SQLiteDatabase database, Context context) {
+        this.data = data;
+        this.context = context;
         this.database = database;
-
-        for (int i = 0; i < len; i++) {
-            this.name[i] = name[i];
-            this.amt[i] = amt[i];
-            this.img[i] = img[i];
-        }
     }
 
     @NonNull
@@ -38,17 +35,27 @@ class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.title.setText(name[position]);
-        holder.imageView.setImageResource(img[position]);
-        holder.amt.setText("Rs. " + amt[position] + "/-");
-        final int image = img[position];
-        final String n = name[position];
-        final String price = String.valueOf(amt[position]);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        holder.title.setText(data.get(position).getName());
+        Glide.with(context)
+                .asBitmap()
+                .load(data.get(position).getImage())
+                .into(holder.imageView);
+        String price = "Rs. " + data.get(position).getPrice() + "/-";
+        holder.amt.setText(price);
+        holder.purchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Purchase is clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
         holder.cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CartManagement cartManagement = new CartManagement(database);
+                String image = data.get(holder.getAdapterPosition()).getImage();
+                String n = data.get(holder.getAdapterPosition()).getName();
+                String price = String.valueOf(data.get(holder.getAdapterPosition()).getPrice());
+                CartManagement cartManagement = new CartManagement(database, context);
                 cartManagement.addToCart(image, n, price);
             }
         });
@@ -56,15 +63,15 @@ class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return name.length;
+        return data.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         TextView title, amt;
         ImageView imageView;
-        Button purchase, cart;
+        LinearLayout purchase, cart;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
             amt = itemView.findViewById(R.id.amt);

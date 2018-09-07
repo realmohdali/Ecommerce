@@ -1,14 +1,23 @@
 package com.example.india.e_commerce;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
-public class Cart extends AppCompatActivity {
+import java.util.List;
+
+public class Cart extends AppCompatActivity implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
+
+    private CartAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +34,21 @@ public class Cart extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), layoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
-        String name[] = {"Samsung Desktop", "Google Pixel", "LG OLED TV"};
-        int[] img = {R.drawable.desktop, R.drawable.pixel, R.drawable.tv};
-        recyclerView.setAdapter(new CartAdapter(name, img));
+
+        SQLiteDatabase database = openOrCreateDatabase("CartItems", MODE_PRIVATE, null);
+        CartManagement cartManagement = new CartManagement(database, getApplicationContext());
+        List<CartData> data = cartManagement.showCart();
+
+        RelativeLayout empty = findViewById(R.id.empty);
+
+        if (data.size() > 0) {
+            empty.setVisibility(View.GONE);
+            ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+            new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+
+            adapter = new CartAdapter(data, database, this);
+            recyclerView.setAdapter(adapter);
+        }
 
     }
 
@@ -47,5 +68,10 @@ public class Cart extends AppCompatActivity {
         finish();
         overridePendingTransition(0, 0);
         super.onBackPressed();
+    }
+
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        adapter.removeItem(viewHolder.getAdapterPosition());
     }
 }

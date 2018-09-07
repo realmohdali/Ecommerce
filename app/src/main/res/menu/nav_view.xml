@@ -2,16 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/all"
+            android:icon="@drawable/ic_collections"
+            android:title="@string/all_products" />
+        <item
             android:id="@+id/mobile"
             android:icon="@drawable/ic_phone"
-            android:title="Mobile Phones" />
+            android:title="@string/smartphone" />
         <item
             android:id="@+id/computer"
             android:icon="@drawable/ic_computer"
-            android:title="Computer" />
+            android:title="@string/computer" />
         <item
             android:id="@+id/other"
             android:icon="@drawable/ic_power"
-            android:title="Other Electronics" />
+            android:title="@string/other_electronics" />
     </group>
 </menu>

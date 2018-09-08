@@ -19,6 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Cart" />
+        <activity android:name=".Login" />
+        <activity android:name=".signup" />
+        <activity android:name=".PurchasePage"></activity>
     </application>
 
 </manifest>

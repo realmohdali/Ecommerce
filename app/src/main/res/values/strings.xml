@@ -11,4 +11,13 @@
     <string name="other_electronics">Other Electronics</string>
     <string name="all_products">All Products</string>
     <string name="cart_is_empty">Cart is Empty</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="new_user_sign_up">New User? Sign Up</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="signUp">Sign Up</string>
+    <string name="already_have_an_account_login">Already have an Account? Login</string>
+    <string name="welcome">Welcome</string>
+    <string name="you_are_logged_in">You are logged in</string>
 </resources>

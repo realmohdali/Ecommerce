@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 loading.setVisibility(View.VISIBLE);
                 showProducts = new ShowProducts(products);
                 data = showProducts.showData(cat);
-                adapter = new myAdapter(data, database, getApplicationContext());
+                adapter = new myAdapter(data, database, this);
                 recyclerView.setAdapter(adapter);
                 loading.setVisibility(View.GONE);
                 break;
@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 loading.setVisibility(View.VISIBLE);
                 showProducts = new ShowProducts(products);
                 data = showProducts.showData(cat);
-                adapter = new myAdapter(data, database, getApplicationContext());
+                adapter = new myAdapter(data, database, this);
                 recyclerView.setAdapter(adapter);
                 loading.setVisibility(View.GONE);
                 break;
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                 loading.setVisibility(View.VISIBLE);
                 showProducts = new ShowProducts(products);
                 data = showProducts.showData(cat);
-                adapter = new myAdapter(data, database, getApplicationContext());
+                adapter = new myAdapter(data, database, this);
                 recyclerView.setAdapter(adapter);
                 loading.setVisibility(View.GONE);
                 break;
@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 loading.setVisibility(View.VISIBLE);
                 showProducts = new ShowProducts(products);
                 data = showProducts.showData(cat);
-                adapter = new myAdapter(data, database, getApplicationContext());
+                adapter = new myAdapter(data, database, this);
                 recyclerView.setAdapter(adapter);
                 loading.setVisibility(View.GONE);
                 break;

@@ -1,7 +1,10 @@
 package com.example.india.e_commerce;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -46,7 +48,16 @@ class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
         holder.purchase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Purchase is clicked", Toast.LENGTH_SHORT).show();
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+                boolean login = sp.getBoolean("login", false);
+
+                if (login) {
+                    Intent intent = new Intent(context, PurchasePage.class);
+                    context.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(context, Login.class);
+                    context.startActivity(intent);
+                }
             }
         });
         holder.cart.setOnClickListener(new View.OnClickListener() {

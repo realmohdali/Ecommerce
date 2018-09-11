@@ -3,6 +3,7 @@ package com.example.india.e_commerce;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -36,12 +37,29 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         Glide.with(context)
                 .asBitmap()
                 .load(data.get(position).getImg())
                 .into(holder.imageView);
         holder.title.setText(data.get(position).getName());
+
+        holder.foreground.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int i = holder.getAdapterPosition();
+                String product = data.get(i).getName();
+                String price = "Rs. " + data.get(i).getPrice() + "/-";
+                String image = data.get(i).getImg();
+
+                Intent intent = new Intent(context, PurchasePage.class);
+                intent.putExtra("product", product);
+                intent.putExtra("image", image);
+                intent.putExtra("price", price);
+                context.startActivity(intent);
+
+            }
+        });
     }
 
     @Override

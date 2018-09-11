@@ -52,10 +52,27 @@ class myAdapter extends RecyclerView.Adapter<myAdapter.ViewHolder> {
                 boolean login = sp.getBoolean("login", false);
 
                 if (login) {
+
+                    int i = holder.getAdapterPosition();
+                    String product = data.get(i).getName();
+                    String price = "Rs. " + data.get(i).getPrice() + "/-";
+                    String image = data.get(i).getImage();
+
                     Intent intent = new Intent(context, PurchasePage.class);
+                    intent.putExtra("product", product);
+                    intent.putExtra("image", image);
+                    intent.putExtra("price", price);
                     context.startActivity(intent);
                 } else {
+                    int i = holder.getAdapterPosition();
+                    String product = data.get(i).getName();
+                    String price = "Rs. " + data.get(i).getPrice() + "/-";
+                    String image = data.get(i).getImage();
+
                     Intent intent = new Intent(context, Login.class);
+                    intent.putExtra("product", product);
+                    intent.putExtra("image", image);
+                    intent.putExtra("price", price);
                     context.startActivity(intent);
                 }
             }

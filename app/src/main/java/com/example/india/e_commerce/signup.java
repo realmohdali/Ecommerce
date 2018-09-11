@@ -33,6 +33,8 @@ public class signup extends AppCompatActivity {
     private EditText username, password, password2;
     private Context context = this;
 
+    private String price, product, image;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,11 @@ public class signup extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        price = intent.getExtras().getString("price");
+        product = intent.getExtras().getString("product");
+        image = intent.getExtras().getString("image");
 
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
@@ -101,6 +108,9 @@ public class signup extends AppCompatActivity {
                                 editor.apply();
 
                                 Intent intent = new Intent(context, PurchasePage.class);
+                                intent.putExtra("product", product);
+                                intent.putExtra("image", image);
+                                intent.putExtra("price", price);
                                 context.startActivity(intent);
                                 finish();
                             } else {

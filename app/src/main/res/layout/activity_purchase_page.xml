@@ -6,12 +6,29 @@
     android:orientation="vertical"
     tools:context=".PurchasePage">
 
+    <include
+        android:id="@+id/orderPlaced"
+        layout="@layout/order_placed"
+        android:visibility="gone" />
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:theme="@style/myToolbar" />
+
+    <RelativeLayout
+        android:id="@+id/placingOrder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -87,6 +104,14 @@
                 android:layout_margin="5dp"
                 android:hint="@string/area_pincode"
                 android:inputType="number" />
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="@string/contact_number"
+                android:inputType="phone" />
 
             <View
                 android:layout_width="match_parent"

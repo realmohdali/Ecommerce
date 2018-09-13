@@ -28,6 +28,7 @@ public class Cart extends AppCompatActivity implements RecyclerItemTouchHelper.R
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Cart");
 
         RecyclerView recyclerView = findViewById(R.id.cartList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

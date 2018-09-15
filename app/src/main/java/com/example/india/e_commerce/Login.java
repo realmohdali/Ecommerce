@@ -90,9 +90,11 @@ public class Login extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             String res = jsonObject.getString("response");
                             if (res.equalsIgnoreCase("successfull")) {
+                                String userid = jsonObject.getString("userid");
                                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.putBoolean("login", true);
+                                editor.putString("userid", userid);
                                 editor.apply();
 
                                 Intent intent = new Intent(context, PurchasePage.class);

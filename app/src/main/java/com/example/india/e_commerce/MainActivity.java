@@ -4,8 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -30,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean drawerOpen = false;
     private SQLiteDatabase database, products;
     private RecyclerView recyclerView;
+
+    private Context context = this;
 
     @Override
     protected void onDestroy() {
@@ -196,6 +201,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.cart:
                 Intent intent = new Intent(this, Cart.class);
                 startActivity(intent);
+                overridePendingTransition(0, 0);
+                break;
+            case R.id.order:
+                Intent intent1 = new Intent(this, MyOrders.class);
+                startActivity(intent1);
                 overridePendingTransition(0, 0);
                 break;
         }

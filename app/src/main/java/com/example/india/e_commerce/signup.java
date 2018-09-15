@@ -102,9 +102,11 @@ public class signup extends AppCompatActivity {
                             JSONObject object = new JSONObject(response);
                             String res = object.getString("response");
                             if (res.equalsIgnoreCase("successfull")) {
+                                String userid = object.getString("userid");
                                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.putBoolean("login", true);
+                                editor.putString("userid", userid);
                                 editor.apply();
 
                                 Intent intent = new Intent(context, PurchasePage.class);

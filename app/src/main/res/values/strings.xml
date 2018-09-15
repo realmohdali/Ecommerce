@@ -30,4 +30,7 @@
     <string name="contact_number">Contact Number</string>
     <string name="proceed">Proceed</string>
     <string name="your_order_have_been_placed">Your order have been placed</string>
+    <string name="logout">Logout</string>
+    <string name="no_orders">You have not placed any orders yet</string>
+    <string name="my_orders">My Orders</string>
 </resources>

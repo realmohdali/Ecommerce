@@ -1,6 +1,10 @@
 package com.example.india.e_commerce;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +42,10 @@ public class PurchasePage extends AppCompatActivity {
 
     private Button proceed;
 
+    private String userid;
+
+    private Context context = this;
+
     private static final String URL = "http://realmohdali.000webhostapp.com/ecom/place_order.php";
 
     @Override
@@ -57,6 +65,9 @@ public class PurchasePage extends AppCompatActivity {
         image = intent.getExtras().getString("image");
 
         getSupportActionBar().setTitle(product);
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        userid = sp.getString("userid", "");
 
         ImageView product_image = findViewById(R.id.image);
         TextView product_name = findViewById(R.id.product_name);
@@ -85,6 +96,11 @@ public class PurchasePage extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SQLiteDatabase database = openOrCreateDatabase("CartItems", MODE_PRIVATE, null);
+                CartManagement cartManagement = new CartManagement(database, context);
+                cartManagement.removeFromCart(product);
+                Intent intent1 = new Intent(context, MyOrders.class);
+                context.startActivity(intent1);
                 finish();
             }
         });
@@ -172,6 +188,7 @@ public class PurchasePage extends AppCompatActivity {
                 params.put("contact", cont);
                 params.put("qty", qty);
                 params.put("image", image);
+                params.put("userid", userid);
                 return params;
             }
         };

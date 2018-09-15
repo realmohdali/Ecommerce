@@ -18,4 +18,10 @@
             android:icon="@drawable/ic_power"
             android:title="@string/other_electronics" />
     </group>
+    <group>
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_clear"
+            android:title="@string/logout" />
+    </group>
 </menu>

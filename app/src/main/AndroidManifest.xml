@@ -22,7 +22,8 @@
         <activity android:name=".Login" />
         <activity android:name=".signup" />
         <activity android:name=".PurchasePage" />
-        <activity android:name=".MyOrders"></activity>
+        <activity android:name=".MyOrders" />
+        <activity android:name=".TrackOrder"></activity>
     </application>
 
 </manifest>

@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -91,8 +90,9 @@ public class MyOrders extends AppCompatActivity {
                                     String areacode = jsonObject.getString("areacode");
                                     String contact = jsonObject.getString("contact");
                                     String image = jsonObject.getString("image");
+                                    String id = jsonObject.getString("id");
 
-                                    MyOrdersData item = new MyOrdersData(product, price, status, address, landmark, city, areacode, contact, image);
+                                    MyOrdersData item = new MyOrdersData(product, price, status, address, landmark, city, areacode, contact, image, id);
                                     list.add(item);
                                 }
                                 loading.setVisibility(View.GONE);

@@ -1,9 +1,9 @@
 package com.example.india.e_commerce;
 
 public class MyOrdersData {
-    private String product, price, status, address, landmark, city, areacode, contact, image;
+    private String product, price, status, address, landmark, city, areacode, contact, image, id;
 
-    public MyOrdersData(String product, String price, String status, String address, String landmark, String city, String areacode, String contact, String image) {
+    MyOrdersData(String product, String price, String status, String address, String landmark, String city, String areacode, String contact, String image, String id) {
         this.product = product;
         this.price = price;
         this.status = status;
@@ -13,6 +13,7 @@ public class MyOrdersData {
         this.areacode = areacode;
         this.contact = contact;
         this.image = image;
+        this.id = id;
     }
 
     public String getProduct() {
@@ -49,5 +50,9 @@ public class MyOrdersData {
 
     public String getImage() {
         return image;
+    }
+
+    public String getId() {
+        return id;
     }
 }
